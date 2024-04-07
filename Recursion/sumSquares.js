@@ -1,7 +1,24 @@
 // Write a function that sums squares of numbers in list that may contain more lists
 
 function sumSquares(array) {
-    
+
+    let sum = 0;
+    //Exit if empty array
+    if (array.length == 0) {
+        return 0;
+    }
+    let first_element = array.shift();
+    //Base case
+    if (typeof first_element == "number") {
+        sum += first_element * first_element;
+    }
+    //Recursive case
+    else if (typeof first_element == "object") {
+        sumSquares(first_element);
+    }
+
+    return sum + sumSquares(array);
+
 }
 
 
