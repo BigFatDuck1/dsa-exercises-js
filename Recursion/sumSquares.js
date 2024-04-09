@@ -7,7 +7,8 @@ function sumSquares(array) {
     if (array.length == 0) {
         return 0;
     }
-    let first_element = array.shift();
+    let first_element = array[0];
+    console.log(first_element);
     //Base case
     if (typeof first_element == "number") {
         sum += first_element * first_element;
@@ -17,20 +18,22 @@ function sumSquares(array) {
         sumSquares(first_element);
     }
 
+    array.shift();
+    console.log(array);
     return sum + sumSquares(array);
 
 }
 
 
 //Test
-let l = [1,2,3]; 
-console.log(sumSquares(l)); // 1 + 4 + 9 = 14
+//let l = [1,2,3]; 
+//console.log(sumSquares(l)); // 1 + 4 + 9 = 14
 
 l = [[1,2],3]; 
 console.log(sumSquares(l)); // 1 + 4 + 9 = 14
 
-l = [[[[[[[[[1]]]]]]]]] 
-console.log(sumSquares(l)); // 1 = 1
+//l = [[[[[[[[[1]]]]]]]]] 
+//console.log(sumSquares(l)); // 1 = 1
 
-l = [10,[[10],10],[10]] 
-console.log(sumSquares(l)); // 100 + 100 + 100 + 100 = 400
+//l = [10,[[10],10],[10]] 
+//console.log(sumSquares(l)); // 100 + 100 + 100 + 100 = 400
