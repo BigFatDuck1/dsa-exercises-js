@@ -21,6 +21,22 @@ function replicate(times, number) {
 
 }
 
+function cleanerReplicate(times, number) {
+   if (times <= 0) {
+    let array = [];
+    return array;
+   } 
+   else {
+    let concat_this = cleanerReplicate(times-1, number)
+    let array = [];
+    array.push(number);
+    return array.concat(concat_this);
+   }
+}
+
+//Test
+console.log(cleanerReplicate(5, 10))
+
 //Test
 console.log(replicate(3, 5)) // [5, 5, 5]
 console.log(replicate(1, 69)) // [69]
