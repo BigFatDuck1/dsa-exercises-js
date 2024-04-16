@@ -30,30 +30,36 @@ function fibs(n) {
 //Recursive function
 
 function fibsRec(n) {
-    let array = [];
 
-    //Base case
-    if (n == 0) {
-        array = [0];
-        return array;
-    }
-    else if (n == 1) {
-        array = [1];
-        return array;
-    }
-    //Recursive case
-    else {
-        let digit = fibsRec(n - 1) + fibsRec(n - 2);
-        console.log(digit);
-        array = array.concat(digit);
-        return array;
+    let results = [];
+
+    //the real recursive function
+    function fibsRecursive(number) { //number is the nth fibonacci number given [0,1,1,2,3,5,8...]
+        //Base case
+        if (number == 0) {
+            return 0;
+        }
+        else if (number == 1) {
+            return 1;
+        }
+        //Recursive case
+        else {
+            let recurse = fibsRecursive(number - 2) + fibsRecursive(number - 1);
+            results.push(recurse);
+            return recurse;
+        }
+
     }
 
 
+    results.push(0);
+
+    fibsRecursive(n)
+    return results;
 }
 
-let iterative = fibs(2);
-let recursive = fibsRec(2);
+let iterative = fibs(3);
+let recursive = fibsRec(3);
 
 console.log(iterative);
 console.log(recursive);
