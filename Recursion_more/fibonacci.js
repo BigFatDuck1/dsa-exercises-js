@@ -49,7 +49,7 @@ function fibsRec(n) {
         console.log(nth);
         array.push(nth);
         let next = fibsRec(n - 1);
-        array = array.concat(next);
+        array = [...next, ...array];
         return array;
         
     }
@@ -69,7 +69,7 @@ function fibsRec(n) {
 }
 
 let iterative = fibs(8);
-let recursive = fibsRec(3);
+let recursive = fibsRec(8);
 
 console.log(iterative);
 console.log(recursive);
