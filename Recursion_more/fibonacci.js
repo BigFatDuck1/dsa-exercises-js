@@ -46,6 +46,10 @@ function fibsRec(n) {
         let array = [];
         let nth = fibsRec(n - 2)[fibsRec(n - 2).length - 1] + fibsRec(n - 1)[fibsRec(n - 1).length - 1];
         array.push(nth);
+        while (n >= 1) {
+            n--;
+            array.push(fibsRec(n)[n - 1]);
+        }
         return array;
     }
 
