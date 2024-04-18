@@ -31,6 +31,8 @@ function fibs(n) {
 
 function fibsRec(n) {
 
+    let array = [];
+
     //Base case
     if (n == 0) {
         return [];
@@ -43,20 +45,31 @@ function fibsRec(n) {
     }
     //Recursive case
     else {
-        let array = [];
-        let nth = fibsRec(n - 2)[fibsRec(n - 2).length - 1] + fibsRec(n - 1)[fibsRec(n - 1).length - 1];
+        let nth = fibn(n);
+        console.log(nth);
         array.push(nth);
-        while (n >= 1) {
-            n--;
-            array.push(fibsRec(n)[n - 1]);
-        }
+        let next = fibsRec(n - 1);
+        array = array.concat(next);
         return array;
+        
+    }
+
+    function fibn(number) {
+        if (number == 1) {
+            return 0;
+        } 
+        else if (number == 2) {
+            return 1;
+        }
+        else {
+            return fibn(number - 2) + fibn(number - 1);
+        }
     }
 
 }
 
 let iterative = fibs(8);
-let recursive = fibsRec(8);
+let recursive = fibsRec(3);
 
 console.log(iterative);
 console.log(recursive);
