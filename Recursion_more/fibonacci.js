@@ -31,35 +31,28 @@ function fibs(n) {
 
 function fibsRec(n) {
 
-    let results = [];
-
-    //the real recursive function
-    function fibsRecursive(number) { //number is the nth fibonacci number given [0,1,1,2,3,5,8...]
-        //Base case
-        if (number == 0) {
-            return 0;
-        }
-        else if (number == 1) {
-            return 1;
-        }
-        //Recursive case
-        else {
-            let recurse = fibsRecursive(number - 2) + fibsRecursive(number - 1);
-            results.push(recurse);
-            return recurse;
-        }
-
+    //Base case
+    if (n == 0) {
+        return [];
+    }
+    else if (n == 1) {
+        return [0];
+    }
+    else if (n == 2) {
+        return [0, 1];
+    }
+    //Recursive case
+    else {
+        let array = [];
+        let nth = fibsRec(n - 2)[fibsRec(n - 2).length - 1] + fibsRec(n - 1)[fibsRec(n - 1).length - 1];
+        array.push(nth);
+        return array;
     }
 
-
-    results.push(0);
-
-    fibsRecursive(n)
-    return results;
 }
 
-let iterative = fibs(3);
-let recursive = fibsRec(3);
+let iterative = fibs(8);
+let recursive = fibsRec(8);
 
 console.log(iterative);
 console.log(recursive);
