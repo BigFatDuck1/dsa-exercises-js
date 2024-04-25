@@ -1,3 +1,5 @@
+//Helpful merge sort visualizer
+//https://www.hackerearth.com/practice/algorithms/sorting/merge-sort/visualize/
 
 function mergeSort(array) {
 
