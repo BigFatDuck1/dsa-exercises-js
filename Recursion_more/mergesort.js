@@ -43,6 +43,36 @@ function mergeSort(array) {
             }
         } 
     }
+
+    function merge(array1, array2, merged_array) {
+        
+        //1. If either array is empty, push all the values into merged_array
+        //also this is base case
+        if (array1.length == 0 || array2.length == 0) {
+            for (let i of array1) {
+                merged_array.push(i);
+            }
+            for (let j of array2) {
+                merged_array.push(j);
+            }
+        }
+        //2. If non-empty array, take smallest value
+        else {
+            //If left hand side smaller...
+            if (array1[0] < array2[0]) {
+                merged_array.push(array1.shift());
+            }
+            //If right hand side smaller
+            else if (array2[0] < array1[0]) {
+                merged_array.push(array2.shift());
+            }
+            //Recursive call
+            merge(array1, array2, merged_array);
+        }
+
+        return merged_array;
+    }
+
 }
 
 let one_element = mergeSort([1]);
