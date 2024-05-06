@@ -26,7 +26,24 @@ function mergeSort(array) {
     let left = mergeSort(l); //if l is just one element, then it will return that element because it is already maximally split
     let right = mergeSort(r);
 
-    return [...left, right];
+    //Sort
+    let sorted = [];
+    let left_index = right_index = 0;
+    while (left.length > 0 && right.length > 0) {
+        if (left[left_index] < right[right_index]) {
+            let left_element = left.shift();
+            sorted.push(left_element);
+        }
+        else if (right[right_index] < left[left_index]) {
+            let right_element = right.shift();
+            sorted.push(right_element);
+        }
+    }
+    sorted = sorted.concat(left);
+    sorted = sorted.concat(right)
+    
+
+    return sorted;
 
 }
 
@@ -36,5 +53,5 @@ function mergeSort(array) {
 // let eight = mergeSort([1,2,3,4,5,6,7,8]);
 // console.log(eight);
 
-let five = mergeSort([1,2,3,4,5]);
+let five = mergeSort([5,2,1,10,500]);
 console.log(five);
