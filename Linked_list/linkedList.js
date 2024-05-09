@@ -23,6 +23,22 @@ class LinkedList {
         }
     }
 
+    prepend(value) {
+        let newNode = new Node();
+        newNode.setValue(value);
+        //Set it as first node if there is no first node
+        if (this.firstNode == null) {
+            this.firstNode = newNode;
+        }
+        //Else store first node and set this as first node...
+        else {
+            let initial_first_node = this.firstNode;
+            //then make this node point to the previous first node
+            newNode.nextNode = initial_first_node;
+            this.firstNode = newNode;
+        }
+    }
+
     size() {
         return this.size;
     }
@@ -70,8 +86,11 @@ let new_list = new LinkedList;
 new_list.append("one");
 new_list.append("two");
 new_list.append("three");
+new_list.append("four");
+new_list.append("last");
+new_list.prepend("New first node");
 
 let first = new_list.head();
 let last = new_list.tail();
-console.log(first);
-console.log(last);
+console.log("First node: ", first, "\n");
+console.log("Last node: ", last, "\n");
