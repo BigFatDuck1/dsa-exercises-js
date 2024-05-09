@@ -4,7 +4,7 @@ class LinkedList {
 
     constructor() {
         this.firstNode = null;
-        this.size = 0;
+        this.list_size = 0;
     }
 
     //Append: add node to end of list
@@ -21,6 +21,8 @@ class LinkedList {
             let lastNode = this.findNextNodeUntilNoMore(this.firstNode);
             lastNode.nextNode = newNode;
         }
+        //Change size
+        this.list_size += 1;
     }
 
     prepend(value) {
@@ -37,10 +39,12 @@ class LinkedList {
             newNode.nextNode = initial_first_node;
             this.firstNode = newNode;
         }
+        //Change size
+        this.list_size += 1;
     }
 
     size() {
-        return this.size;
+        return this.list_size;
     }
 
     head() {
@@ -87,10 +91,13 @@ new_list.append("one");
 new_list.append("two");
 new_list.append("three");
 new_list.append("four");
-new_list.append("last");
+new_list.append("five");
 new_list.prepend("New first node");
 
 let first = new_list.head();
 let last = new_list.tail();
 console.log("First node: ", first, "\n");
 console.log("Last node: ", last, "\n");
+
+let how_big = new_list.size();
+console.log(how_big);
