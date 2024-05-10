@@ -119,7 +119,22 @@ class LinkedList {
         return searcher(current_node, value, i);
     }
 
-    //toString()
+    toString() {
+        let current_node = this.head();
+
+        function parser(node, string) {
+            if (node.nextNode == null) {
+                string += `(${node.value}) -> null`;
+                return string;
+            }
+            else {
+                string += `(${node.value}) -> `;
+                return parser(node.nextNode, string);
+            }
+        }
+
+        return parser(current_node, "");
+    }
 
     findNextNodeUntilNoMore(node) {
         if (node.nextNode == null) {
@@ -178,7 +193,10 @@ let at_index = new_list.at(2); //Should return third node i.e. "three"
 // console.log(result1); //true
 // console.log(result2); //false
 
-let result1 = new_list.find("two");
-let result2 = new_list.find("sixty");
-console.log(result1); //1
-console.log(result2); //false
+// let result1 = new_list.find("two");
+// let result2 = new_list.find("sixty");
+// console.log(result1); //1
+// console.log(result2); //false
+
+let string = new_list.toString();
+console.log(string);
