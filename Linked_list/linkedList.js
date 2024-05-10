@@ -55,6 +55,25 @@ class LinkedList {
         return this.findNextNodeUntilNoMore(this.firstNode);
     }
 
+    at(index) {
+        //Return error if out of bounds
+        if (index >= this.size()) {
+            return "Error";
+        }
+        //Return head
+        if (index == 0) {
+            return this.head();
+        }
+
+        let i = 1;
+        let current_node = this.head();
+        while (i <= index) {
+            current_node = current_node.nextNode;
+            i += 1;
+        }
+        return current_node;
+    }
+
     findNextNodeUntilNoMore(node) {
         if (node.nextNode == null) {
             return node;
@@ -92,12 +111,12 @@ new_list.append("two");
 new_list.append("three");
 new_list.append("four");
 new_list.append("five");
-new_list.prepend("New first node");
+//new_list.prepend("New first node");
 
 let first = new_list.head();
 let last = new_list.tail();
-console.log("First node: ", first, "\n");
-console.log("Last node: ", last, "\n");
+//console.log("First node: ", first, "\n");
+//console.log("Last node: ", last, "\n");
 
-let how_big = new_list.size();
-console.log(how_big);
+let at_index = new_list.at(2); //Should return third node i.e. "three"
+console.log(at_index); 
