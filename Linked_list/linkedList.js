@@ -74,6 +74,13 @@ class LinkedList {
         return current_node;
     }
 
+    pop() { //Remove last element from list
+        let penultimate_index = this.size() - 2;
+        let penultimate_node = this.at(penultimate_index);
+        penultimate_node.nextNode = null; //Leaves the final node floating in memory to be collected by garbage management
+        this.list_size -= 1;
+    };
+
     findNextNodeUntilNoMore(node) {
         if (node.nextNode == null) {
             return node;
@@ -119,4 +126,9 @@ let last = new_list.tail();
 //console.log("Last node: ", last, "\n");
 
 let at_index = new_list.at(2); //Should return third node i.e. "three"
-console.log(at_index); 
+// console.log(at_index); 
+
+new_list.pop();
+new_list.pop();
+last = new_list.tail();
+console.log(last);
