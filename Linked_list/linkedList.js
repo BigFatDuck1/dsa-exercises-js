@@ -99,7 +99,25 @@ class LinkedList {
         return searcher(current_node, value);
     }
 
-    //find(value)
+    find(value) {
+        let current_node = this.head();
+        let i = 0;
+
+        function searcher(node, search_value, index) {
+            if (node.value == search_value) {
+                return index;
+            }
+            else if (node.nextNode == null) {
+                return false;
+            }
+            else {
+                index += 1;
+                return searcher(node.nextNode, search_value, index);
+            }
+        }
+
+        return searcher(current_node, value, i);
+    }
 
     //toString()
 
@@ -155,7 +173,12 @@ let at_index = new_list.at(2); //Should return third node i.e. "three"
 // last = new_list.tail();
 // console.log(last);
 
-let result1 = new_list.contains("five");
-let result2 = new_list.contains("sixty");
-console.log(result1); //true
+// let result1 = new_list.contains("five");
+// let result2 = new_list.contains("sixty");
+// console.log(result1); //true
+// console.log(result2); //false
+
+let result1 = new_list.find("two");
+let result2 = new_list.find("sixty");
+console.log(result1); //1
 console.log(result2); //false
