@@ -9,3 +9,7 @@
 ### Recursion_more
 
 From The Odin Project(<https://www.theodinproject.com/lessons/javascript-recursion>)
+
+### Hash map
+
+From The Odin Project(<https://www.theodinproject.com/lessons/javascript-hashmap>)
