@@ -13,3 +13,5 @@ From The Odin Project(<https://www.theodinproject.com/lessons/javascript-recursi
 ### Hash map
 
 From The Odin Project(<https://www.theodinproject.com/lessons/javascript-hashmap>)
+
+Some exercises from _The Self-Taught Computer Scientist_ by Cory AltHoff
