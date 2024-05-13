@@ -9,22 +9,23 @@ function duplicate(string) {
     let hash = {};
 
     let k = 0;
+    let new_string = "";
 
     for (let individual of split) {
         if (individual in hash) {
-            
+            //Do nothing
         }
         else {
-            hash[individual] = k; 
+            hash[individual] = k;
+            new_string += individual + " "; 
             k += 1;
         }
     }
 
-    let new_string = "";
 
-    for (i in hash) {
-        new_string += i + " ";
-    }
+    // for (i in hash) {
+    //     new_string += i + " ";
+    // }
 
     return new_string;
 }
