@@ -2,11 +2,22 @@
 class HashMap {
 
     constructor() {
+        this.buckets = 89; //Number of buckets in the hash
 
     }
 
     hash(key) { //Takes a key and returns a hash that is used to access the appropriate bucket
 
+        let hashCode = 0;
+            
+        const primeNumber = 31;
+        
+        for (let i = 0; i < key.length; i++) {
+            hashCode = primeNumber * hashCode + key.charCodeAt(i);
+            hashCode = hashCode % this.buckets;
+        }
+
+        return hashCode;
     }
 
     set(key, value) { 
