@@ -2,8 +2,8 @@
 class HashMap {
 
     constructor() {
-        this.buckets = 89; //Number of buckets in the hash
-
+        this.capacity = 89; //Number of buckets in the hash
+        this.load_factor = 0.75 //Increase capacity when buckets are 75% full
     }
 
     hash(key) { //Takes a key and returns a hash that is used to access the appropriate bucket
