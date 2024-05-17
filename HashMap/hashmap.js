@@ -28,13 +28,17 @@ class HashMap {
         let index = this.hash(key);
 
         if (this.array[index] == undefined) {
-            this.array[index] = value;
+            this.array[index] = [key, value]; //array[index][0] is the key, [1] is the value
         }
         else { 
             //Collision?
-            
+            if (this.array[index][0] != key) {
+
+            }
             //If it is not a collision, it is an overwrite operation
-            this.array[index] = value;
+            else if (this.array[index][0] == key) {
+                this.array[index] = value;
+            }
         }
 
 
