@@ -33,7 +33,9 @@ class HashMap {
         else { 
             //Collision?
             if (this.array[index][0] != key) {
-
+                let head = this.array[index];
+                //Create a linked list with Javascript built-in arrays
+                this.array[index] = [...head, [key, value]] //spread operator to not make any further nested lists
             }
             //If it is not a collision, it is an overwrite operation
             else if (this.array[index][0] == key) {
