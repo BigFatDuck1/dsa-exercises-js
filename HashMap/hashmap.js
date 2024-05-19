@@ -41,14 +41,16 @@ class HashMap {
             else if (this.array[index][0] == key) {
                 this.array[index] = value;
             }
-        }
-
-
-    
+        }    
     }
 
     get(key) { //Returns value associated with key, otherwise return null
+        let hashcode = this.hash(key);
 
+        //Return null if no such value exists
+        if (this.array[hashcode] == undefined) {
+            return null;
+        }
     }
 
     has(key) { //If key is in hash map, return true, otherwise return false
@@ -94,3 +96,8 @@ class HashMap {
 
 // Extra Credit:
 // Create a HashSet class or factory function that behaves the same as a HashMap but only contains keys with no values.
+
+//Test
+let hash1 = new HashMap();
+let return_null = hash1.get("random_key");
+console.log(return_null)
