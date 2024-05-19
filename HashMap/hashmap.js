@@ -124,7 +124,7 @@ class HashMap {
     }
 
     clear() { //Remove all entries in hashmap
-
+        this.array.length = 0;
     }
 
     keys() { //Returns an array containing all keys inside hashmap
@@ -160,6 +160,7 @@ hash1.set("random_key", "new_value");
 // let return_null = hash1.get("random_key");
 // console.log(return_null)
 hash1.set("no_key", "no_value");
-hash1.remove("no_key");
+// hash1.remove("no_key");
+hash1.clear();
 let has = hash1.has("no_key");
 console.log(has);
