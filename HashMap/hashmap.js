@@ -76,12 +76,19 @@ class HashMap {
         if (this.array[hashcode] == undefined) {
             return false;
         }
+        else if (this.array[hashcode][0] == key) {
+            return true;
+        }
         else {
             //Check is it a coincidence that the key generated a hashcode that is identical to another pre-existing key
             let return_value = true;
             for (let i = 0; i < this.array[hashcode].length; i++) { //traverse through the linked list
                 if (this.array[hashcode][i][0] != key) {
                     return_value = false; //The key doesn't match, they just happened to generate the same hashcode
+                }
+                else if (this.array[hashcode][i][0] == key) {
+                    return_value = true; //there is a matching key, break out of the for loop
+                    break;
                 }
             }
             return return_value;
@@ -91,6 +98,24 @@ class HashMap {
     remove(key) {
         //return true if key is in hashmap and the key and value is cleared
         //otherwise return false as nothing is removed
+        if (this.has(key) == false) {
+            return false;
+        }
+        else {
+            let hashcode = this.hash(key);
+            //No collision, not linked list
+            if (this.array[hashcode][0] == key) {
+                this.array[hashcode] = undefined; //Remove it
+            }
+            else {
+                for (let i = 0; i < this.array[hashcode].length; i++) {
+                    if (this.array[hashcode][i][0] == key) {
+                        this.array[hashcode][i] = undefined; //Remove it
+                        break;
+                    }
+                }
+            }
+        }
 
     }
 
@@ -134,5 +159,7 @@ hash1.set("random_key", "random_value");
 hash1.set("random_key", "new_value");
 // let return_null = hash1.get("random_key");
 // console.log(return_null)
+hash1.set("no_key", "no_value");
+hash1.remove("no_key");
 let has = hash1.has("no_key");
 console.log(has);
