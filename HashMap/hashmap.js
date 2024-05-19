@@ -15,7 +15,7 @@ class HashMap {
         
         for (let i = 0; i < key.length; i++) {
             hashCode = primeNumber * hashCode + key.charCodeAt(i);
-            hashCode = hashCode % this.buckets; //this line makes the hashcode smaller
+            hashCode = hashCode % this.capacity; //this line makes the hashcode smaller
         }
 
         return hashCode;
@@ -70,6 +70,22 @@ class HashMap {
 
     has(key) { //If key is in hash map, return true, otherwise return false
 
+        let hashcode = this.hash(key);
+
+        //Return false if key does not exist in hashmap
+        if (this.array[hashcode] == undefined) {
+            return false;
+        }
+        else {
+            //Check is it a coincidence that the key generated a hashcode that is identical to another pre-existing key
+            let return_value = true;
+            for (let i = 0; i < this.array[hashcode].length; i++) { //traverse through the linked list
+                if (this.array[hashcode][i][0] != key) {
+                    return_value = false; //The key doesn't match, they just happened to generate the same hashcode
+                }
+            }
+            return return_value;
+        }
     }
 
     remove(key) {
@@ -116,5 +132,7 @@ class HashMap {
 let hash1 = new HashMap();
 hash1.set("random_key", "random_value");
 hash1.set("random_key", "new_value");
-let return_null = hash1.get("random_key");
-console.log(return_null)
+// let return_null = hash1.get("random_key");
+// console.log(return_null)
+let has = hash1.has("no_key");
+console.log(has);
