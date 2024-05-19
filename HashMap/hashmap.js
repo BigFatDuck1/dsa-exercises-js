@@ -39,7 +39,7 @@ class HashMap {
             }
             //If it is not a collision, it is an overwrite operation
             else if (this.array[index][0] == key) {
-                this.array[index] = value;
+                this.array[index] = [key, value];
             }
         }    
     }
@@ -50,6 +50,21 @@ class HashMap {
         //Return null if no such value exists
         if (this.array[hashcode] == undefined) {
             return null;
+        }
+        else if (this.array[hashcode][0] == key) { //It's not a linked list, there is only one key-value pair (one-to-one mapping)
+            return this.array[hashcode][1]; //return the value 
+        }
+        else { //It's a linked list, call a recursive function to keep looking for the key
+            return this.keyChecker(key, hashcode, 0);
+        }
+    }
+
+    keyChecker(key, hash, n) {
+        if (this.array[hash][n][0] == key) {
+            return this.array[hash][n];
+        }
+        else {
+            return this.keyChecker(key, hash, n + 1);
         }
     }
 
@@ -99,5 +114,7 @@ class HashMap {
 
 //Test
 let hash1 = new HashMap();
+hash1.set("random_key", "random_value");
+hash1.set("random_key", "new_value");
 let return_null = hash1.get("random_key");
 console.log(return_null)
