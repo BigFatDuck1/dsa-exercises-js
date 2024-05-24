@@ -5,6 +5,7 @@ class HashMap {
         this.capacity = 89; //Number of buckets in the hash
         this.load_factor = 0.75 //Increase capacity when buckets are 75% full
         this.array = [];
+        this.current_load = 0;
     }
 
     hash(key) { //Takes a key and returns a hash that is used to access the appropriate bucket
@@ -43,7 +44,17 @@ class HashMap {
             else if (this.array[index][0] == key) {
                 this.array[index] = [key, value];
             }
-        }    
+        }
+        
+        this.loadManagement();
+    }
+
+    loadManagement() {
+        this.current_load += 1;
+        let percent_loaded = this.current_load / this.capacity;
+        if (percent_loaded > this.load_factor) {
+            this.capacity *= 1.15; //Increase by 15%
+        }
     }
 
     get(key) { //Returns value associated with key, otherwise return null
