@@ -135,15 +135,54 @@ class HashMap {
     }
 
     keys() { //Returns an array containing all keys inside hashmap
-
+        let array_of_keys = [];
+        for (let i = 0; i < this.array.length; i++) {
+            if (this.array[i] != undefined) {
+                if (this.array[i].length == 2) { //single element, not linked list
+                    array_of_keys.push(this.array[i][0])
+                }
+                else { //it is a linked list
+                    this.array[i].forEach(element => {
+                        array_of_keys.push(element[0]);
+                    });
+                }
+            }
+        }
+        return array_of_keys;
     }
 
     value() { //Returns an array containing all values inside hashmap
-
+        let array_of_values = [];
+        for (let i = 0; i < this.array.length; i++) {
+            if (this.array[i] != undefined) {
+                if (this.array[i].length == 2) { //single element, not linked list
+                    array_of_values.push(this.array[i][1])
+                }
+                else { //it is a linked list
+                    this.array[i].forEach(element => {
+                        array_of_values.push(element[0]);
+                    });
+                }
+            }
+        }
+        return array_of_values;
     }
 
     entries() { //Returns an array that contains each key, value pair. Example: [[firstKey, firstValue], [secondKey, secondValue]]
-
+        let array = [];
+        for (let i = 0; i < this.array.length; i++) {
+            if (this.array[i] != undefined) {
+                if (this.array[i].length == 2) { //single element, not linked list
+                    array.push(this.array[i]);
+                }
+                else { //it is a linked list
+                    this.array[i].forEach(element => {
+                        array.push(element);
+                    });
+                }
+            }
+        }
+        return array;
     }
 
     outOfBoundsIndex(index, buckets) { //Buckets is the array containing everything
@@ -169,7 +208,13 @@ hash1.set("random_key", "new_value"); //overwrites "random_key"
 hash1.set("no_key", "no_value");
 // hash1.remove("no_key");
 //hash1.clear();
-let has = hash1.has("no_key");
-console.log(has);
-let length = hash1.length();
-console.log(length);
+// let has = hash1.has("no_key");
+// console.log(has);
+// let length = hash1.length();
+// console.log(length);
+let keys = hash1.keys();
+console.log(keys)
+let values = hash1.value();
+console.log(values);
+let all = hash1.entries();
+console.log(all);
