@@ -120,7 +120,14 @@ class HashMap {
     }
 
     length() { //Return number of keys stored in hashmap
+        let length = 0;
+        for (let i = 0; i < this.array.length; i++) {
+            if (this.array[i] != undefined) {
+                length += 1;
+            }
+        }
 
+        return length;
     }
 
     clear() { //Remove all entries in hashmap
@@ -156,11 +163,13 @@ class HashMap {
 //Test
 let hash1 = new HashMap();
 hash1.set("random_key", "random_value");
-hash1.set("random_key", "new_value");
+hash1.set("random_key", "new_value"); //overwrites "random_key"
 // let return_null = hash1.get("random_key");
 // console.log(return_null)
 hash1.set("no_key", "no_value");
 // hash1.remove("no_key");
-hash1.clear();
+//hash1.clear();
 let has = hash1.has("no_key");
 console.log(has);
+let length = hash1.length();
+console.log(length);
