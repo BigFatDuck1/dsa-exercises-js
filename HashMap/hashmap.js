@@ -15,7 +15,9 @@ class HashMap {
         
         for (let i = 0; i < key.length; i++) {
             hashCode = primeNumber * hashCode + key.charCodeAt(i);
-            hashCode = hashCode % this.capacity; //this line makes the hashcode smaller
+            if (hashCode > this.capacity) {
+                hashCode = hashCode % this.capacity; //this line makes the hashcode smaller
+            }
         }
 
         return hashCode;
