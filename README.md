@@ -15,3 +15,7 @@ From The Odin Project(<https://www.theodinproject.com/lessons/javascript-recursi
 From The Odin Project(<https://www.theodinproject.com/lessons/javascript-hashmap>)
 
 Some exercises from _The Self-Taught Computer Scientist_ by Cory AltHoff
+
+### Binary search tree
+
+From The Odin Project(<https://www.theodinproject.com/lessons/javascript-binary-search-trees>)
