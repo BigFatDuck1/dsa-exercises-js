@@ -2,9 +2,10 @@
 
 class Node {
     
-    constructor(left, right) {
-        this.left = left;
-        this.right = right;
+    constructor() {
+        this.value; //Value of the node
+        this.left; //Left is always smaller than this node
+        this.right; //Right is always bigger than this node
     }
 
 
@@ -12,7 +13,8 @@ class Node {
 
 class Tree {
 
-    constructor() {
+    constructor(array) {
+        this.array = array;
         this.root;
     }
 
@@ -20,6 +22,11 @@ class Tree {
         //Takes array
         //and turns it in a balanced binary search tree with Node objects (sort and remove duplicates!)
         //then return the level-0 root node
+        array = removeDuplicates(array);
+        array = mergeSort(array);
+        //Find middle element
+        let middle_element = array[Math.floor(array.length/2)];
+
     }
 
     prettyPrint(node, prefix = "", isLeft = true) {
@@ -82,6 +89,66 @@ class Tree {
     reBalance() {
         //Hint: provide new array to buildTree()
     }
+
+}
+
+function mergeSort(array) {
+
+    //Base case
+    //If array only has one element, it is already sorted
+    if (array.length == 1 || array.length == 0) {
+        return array;
+    }
+    
+    //Recursive case
+    //Split first
+    let middle_point;
+
+    if (array.length % 2 == 0 ) { //even
+        middle_point = array.length / 2;
+    }
+    else if (array.length % 2 == 1) { //odd
+        middle_point = (array.length + 1) / 2;
+    }
+
+    let l = array.slice(0, middle_point);
+    let r = array.slice(middle_point);
+
+    let left = mergeSort(l); //if l is just one element, then it will return that element because it is already maximally split
+    let right = mergeSort(r);
+
+    //Sort
+    let sorted = [];
+    let left_index = right_index = 0;
+    while (left.length > 0 && right.length > 0) {
+        if (left[left_index] < right[right_index]) {
+            let left_element = left.shift();
+            sorted.push(left_element);
+        }
+        else if (right[right_index] < left[left_index]) {
+            let right_element = right.shift();
+            sorted.push(right_element);
+        }
+    }
+    sorted = sorted.concat(left);
+    sorted = sorted.concat(right)
+    
+
+    return sorted;
+
+}
+
+function removeDuplicates(array) {
+    let new_array = [];
+    for (let i = 0; i < array.length; i++) {
+        if (new_array.includes(array[i])) {
+            //Do nothing
+        }
+        else {
+            new_array.push(array[i]);
+        }
+    }
+    return new_array;
 }
 
 //Driver script (test)
