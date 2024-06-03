@@ -2,10 +2,18 @@
 
 class Node {
     
-    constructor() {
-        this.value; //Value of the node
+    constructor(value) {
+        this.value = value; //Value of the node
         this.left; //Left is always smaller than this node
         this.right; //Right is always bigger than this node
+    }
+
+    setLeft(left) {
+        this.left = left;
+    }
+
+    setRight(right) {
+        this.right = right;
     }
 
 
@@ -24,8 +32,36 @@ class Tree {
         //then return the level-0 root node
         array = removeDuplicates(array);
         array = mergeSort(array);
-        //Find middle element
+
+
+    }
+
+    recurseTree(array) {
+        //GIven a sorted array
+        //find middle element
+        //put smaller than middle elements to the left and larger than middle element to the right
+        //if left/right > 1 then recursive call again
+        let middle_index = Math.floor(array.length/2);
         let middle_element = array[Math.floor(array.length/2)];
+        let middle_node = new Node(middle_element);
+
+        //Call base case if there are only two or three elements in the array
+        if (array.length <= 3) {
+            if (array.length == 3) {
+                middle_node.setLeft(array[0]);
+                middle_node.setRight(array[2]);
+            }
+            else if (array.length == 2) {
+                middle_node.setLeft(array[0]);
+            }
+        }
+        //Recursive case
+        else {
+            let left = this.recurseTree(array.slice[0, middle_index]);
+            let right = this.recurseTree(array.slice[middle_index]);
+
+            return left, right;
+        }
 
     }
 
