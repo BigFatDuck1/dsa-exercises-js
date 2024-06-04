@@ -42,7 +42,7 @@ class Tree {
         //put smaller than middle elements to the left and larger than middle element to the right
         //if left/right > 1 then recursive call again
         let middle_index = Math.floor(array.length/2);
-        let middle_element = array[Math.floor(array.length/2)];
+        let middle_element = array[middle_index];
         let middle_node = new Node(middle_element);
 
         //Call base case if there are only two or three elements in the array
@@ -54,13 +54,21 @@ class Tree {
             else if (array.length == 2) {
                 middle_node.setLeft(array[0]);
             }
+            else if (array.length == 1) {
+                //Do nothing, because there is only one element so by default it is the middle node
+            }
+
+            return middle_node;
         }
         //Recursive case
         else {
-            let left = this.recurseTree(array.slice[0, middle_index]);
-            let right = this.recurseTree(array.slice[middle_index]);
+            let left = this.recurseTree(array.slice(0, middle_index));
+            let right = this.recurseTree(array.slice(middle_index + 1));
 
-            return left, right;
+            middle_node.setLeft(left); //Since left returns the middle node, set this node as the left node of the root node
+            middle_node.setRight(right);
+
+            return middle_node;
         }
 
     }
