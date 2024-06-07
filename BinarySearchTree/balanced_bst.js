@@ -33,6 +33,9 @@ class Tree {
         array = removeDuplicates(array);
         array = mergeSort(array);
 
+        let root = this.recurseTree(array);
+
+        return root;
 
     }
 
@@ -78,11 +81,11 @@ class Tree {
           return;
         }
         if (node.right !== null) {
-          prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+          this.prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
         }
         console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
         if (node.left !== null) {
-          prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+          this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
         }
     };
 
@@ -211,3 +214,13 @@ let driverScript = () => {
 }
 
 driverScript();
+
+let test = () => {
+    let new_tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+    let root = new_tree.buildTree(new_tree.array);
+    // return new_tree.prettyPrint(root);
+    return root;
+}
+
+let log = test();
+console.log(log);
