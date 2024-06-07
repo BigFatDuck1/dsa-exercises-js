@@ -25,7 +25,7 @@ class Tree {
         this.array = array;
         this.root;
     }
-
+    
     buildTree(array) {
         //Takes array
         //and turns it in a balanced binary search tree with Node objects (sort and remove duplicates!)
@@ -51,11 +51,15 @@ class Tree {
         //Call base case if there are only two or three elements in the array
         if (array.length <= 3) {
             if (array.length == 3) {
-                middle_node.setLeft(array[0]);
-                middle_node.setRight(array[2]);
+                let left = new Node(array[0]);
+                let right = new Node(array[2]);
+
+                middle_node.setLeft(left);
+                middle_node.setRight(right);
             }
             else if (array.length == 2) {
-                middle_node.setLeft(array[0]);
+                let left = new Node(array[0]);
+                middle_node.setLeft(left);
             }
             else if (array.length == 1) {
                 //Do nothing, because there is only one element so by default it is the middle node
@@ -77,16 +81,18 @@ class Tree {
     }
 
     prettyPrint(node, prefix = "", isLeft = true) {
-        if (node === null) {
-          return;
+        if (node === undefined) {
+          return "Printed";
         }
-        if (node.right !== null) {
-          this.prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+        if (node.right !== undefined) {
+            this.prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
         }
-        console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-        if (node.left !== null) {
-          this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+        console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.value}`);
+
+        if (node.left !== undefined) {
+            this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
         }
+        
     };
 
     insert(value) {
@@ -217,9 +223,9 @@ driverScript();
 
 let test = () => {
     let new_tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+    // let new_tree = new Tree([1,2,3]);
     let root = new_tree.buildTree(new_tree.array);
-    // return new_tree.prettyPrint(root);
-    return root;
+    return new_tree.prettyPrint(root);
 }
 
 let log = test();
