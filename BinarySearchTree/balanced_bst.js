@@ -16,6 +16,10 @@ class Node {
         this.right = right;
     }
 
+    getValue() {
+        return this.value;
+    }
+
 
 }
 
@@ -34,6 +38,9 @@ class Tree {
         array = mergeSort(array);
 
         let root = this.recurseTree(array);
+
+        //Set Tree property
+        this.root = root;
 
         return root;
 
@@ -96,7 +103,57 @@ class Tree {
     };
 
     insert(value) {
+        let root = this.root;
 
+        function traverse(node, value) {
+            //if there is a  matching node, return false
+            //if no node is found, return the node, that node will become the parent
+
+            //If node already exists
+            if (node.value == value) {
+                return false;
+            }
+            //Base case: reached end node i.e. child which is not a parent
+            if (node.left == undefined || node.right == undefined) {
+                console.log(node.left)
+                //1. if both left and right are empty, this node is the parent node
+                if (node.left == undefined && node.right == undefined) {
+                    return node;
+                }
+                //2. if there's one child instead of two children
+                if (value > node.right.getValue()) {
+                    return node.right;
+                }
+                else if (value < node.left.getValue()) {
+                    return node.left;
+                }
+                //3. Value belongs in missing slot
+                return node;
+                //to be honest, case 1 and case 3 can be merged, but my thought process is clearer when put like this
+            }
+            //Recursive case
+            else {
+                if (value > node.value) { //Go right
+                    return traverse(node.right, value);
+                }
+                else if (value < node.value) { //Go left
+                    return traverse(node.left, value);
+                }
+            }
+        }
+
+        let parent = traverse(root, value);
+        if (parent == false) {
+            return "Value already exists in tree.";
+        }
+        else {
+            if (value > parent.value) {
+                parent.right = new Node(value);
+            }
+            else if (value < parent.value) {
+                parent.left = new Node(value);
+            }
+        }
     }
 
     deleteItem(value) {
@@ -106,6 +163,7 @@ class Tree {
 
     find(value) {
         //returns node with given value
+
     }
 
     levelOrder(callback) {
@@ -222,11 +280,15 @@ let driverScript = () => {
 driverScript();
 
 let test = () => {
-    let new_tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+    let new_tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]); //11 unique elements
     // let new_tree = new Tree([1,2,3]);
     let root = new_tree.buildTree(new_tree.array);
-    return new_tree.prettyPrint(root);
+    new_tree.prettyPrint(root);
+
+    //Insert new value
+    new_tree.insert(63455);
+    new_tree.prettyPrint(root);
 }
 
 let log = test();
-console.log(log);
+// console.log(log);
