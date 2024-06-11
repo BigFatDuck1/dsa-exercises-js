@@ -123,25 +123,21 @@ class Tree {
                 }
                 //2. Right node doesn't exist, left node exists
                 if (node.right == undefined && node.left != undefined) {
-                    //either belongs to left node
-                    if (value < node.left.getValue()) {
-                        return node.left;
+                    //belongs to parent node
+                    if (value > node.value) {
+                        return node; //value should be inserted at its (parent's) right
                     }
-                    //or belongs to parent node
-                    else if (value > node.value) {
-                        return node;
-                    }
+                    //belongs to child
+                    return node.left;
                 }
                 //3. Repeat for inverse
                 if (node.left == undefined && node.right != undefined) {
-                    //either belongs to right node
-                    if (value > node.right.getValue()) {
-                        return node.right;
+                    //belongs to parent node
+                    if (value < node.value) {
+                        return node; //value should be inserted at its (parent's) left
                     }
-                    //or belongs to parent node
-                    else if (value < node.value) {
-                        return node;
-                    }
+                    //belongs to child
+                    return node.right;
                 }
             }
             //Recursive case
@@ -302,6 +298,7 @@ let test = () => {
 
     //Insert new value
     new_tree.insert(10);
+    new_tree.insert(1000);
     new_tree.prettyPrint(root);
 }
 
