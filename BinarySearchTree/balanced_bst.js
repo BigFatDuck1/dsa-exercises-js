@@ -115,21 +115,34 @@ class Tree {
             }
             //Base case: reached end node i.e. child which is not a parent
             if (node.left == undefined || node.right == undefined) {
-                console.log(node.left)
+                //!del
+                console.log(node);
                 //1. if both left and right are empty, this node is the parent node
                 if (node.left == undefined && node.right == undefined) {
                     return node;
                 }
-                //2. if there's one child instead of two children
-                if (value > node.right.getValue()) {
-                    return node.right;
+                //2. Right node doesn't exist, left node exists
+                if (node.right == undefined && node.left != undefined) {
+                    //either belongs to left node
+                    if (value < node.left.getValue()) {
+                        return node.left;
+                    }
+                    //or belongs to parent node
+                    else if (value > node.value) {
+                        return node;
+                    }
                 }
-                else if (value < node.left.getValue()) {
-                    return node.left;
+                //3. Repeat for inverse
+                if (node.left == undefined && node.right != undefined) {
+                    //either belongs to right node
+                    if (value > node.right.getValue()) {
+                        return node.right;
+                    }
+                    //or belongs to parent node
+                    else if (value < node.value) {
+                        return node;
+                    }
                 }
-                //3. Value belongs in missing slot
-                return node;
-                //to be honest, case 1 and case 3 can be merged, but my thought process is clearer when put like this
             }
             //Recursive case
             else {
@@ -143,6 +156,8 @@ class Tree {
         }
 
         let parent = traverse(root, value);
+        //! Delete
+        console.log(parent);
         if (parent == false) {
             return "Value already exists in tree.";
         }
@@ -286,7 +301,7 @@ let test = () => {
     new_tree.prettyPrint(root);
 
     //Insert new value
-    new_tree.insert(63455);
+    new_tree.insert(10);
     new_tree.prettyPrint(root);
 }
 
