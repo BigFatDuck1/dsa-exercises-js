@@ -115,8 +115,6 @@ class Tree {
             }
             //Base case: reached end node i.e. child which is not a parent
             if (node.left == undefined || node.right == undefined) {
-                //!del
-                console.log(node);
                 //1. if both left and right are empty, this node is the parent node
                 if (node.left == undefined && node.right == undefined) {
                     return node;
@@ -152,8 +150,6 @@ class Tree {
         }
 
         let parent = traverse(root, value);
-        //! Delete
-        console.log(parent);
         if (parent == false) {
             return "Value already exists in tree.";
         }
@@ -170,10 +166,35 @@ class Tree {
     deleteItem(value) {
         //Remember to include several cases e.g.
         //does the node have children? what about no children? 
+
     }
 
     find(value) {
         //returns node with given value
+        function recurseFind(node, value) {
+            //Base case - value found
+            if (node.value == value) {
+                return node;
+            }
+            //Recursive case 
+            else if (node.value != value) {
+                //Value doesn't exist in tree
+                if (node.left == undefined && node.right == undefined) {
+                    return false;
+                }
+                else if (value > node.value && node.right != undefined) { //go right
+                    return recurseFind(node.right, value);
+                }
+                else if (value < node.value && node.left != undefined) { //go left
+                    return recurseFind(node.left, value);
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+
+        return recurseFind(this.root, value);
 
     }
 
@@ -294,12 +315,16 @@ let test = () => {
     let new_tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]); //11 unique elements
     // let new_tree = new Tree([1,2,3]);
     let root = new_tree.buildTree(new_tree.array);
-    new_tree.prettyPrint(root);
+    // new_tree.prettyPrint(root);
 
     //Insert new value
     new_tree.insert(10);
     new_tree.insert(1000);
+    let find_false = new_tree.find(99); // false
+    let find = new_tree.find(23);
     new_tree.prettyPrint(root);
+    console.log(find);
+    console.log(find_false);
 }
 
 let log = test();
