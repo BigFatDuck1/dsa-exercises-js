@@ -165,7 +165,47 @@ class Tree {
 
     deleteItem(value) {
         //Remember to include several cases e.g.
-        //does the node have children? what about no children? 
+        //does the node have children? what about no children?
+
+        //Return both parents and child
+        function parentChild(node, value, parent) {
+            //Base case - value found
+            if (node.value == value) {
+                return [parent, node];
+            }
+            //Recursive case 
+            else if (node.value != value) {
+                //Value doesn't exist in tree
+                if (node.left == undefined && node.right == undefined) {
+                    return [false, false];
+                }
+                else if (value > node.value && node.right != undefined) { //go right
+                    return parentChild(node.right, value, node);
+                }
+                else if (value < node.value && node.left != undefined) { //go left
+                    return parentChild(node.left, value, node);
+                }
+                else {
+                    return [false, false];
+                }
+            }
+        }
+
+        let [parent_node, target_node] = parentChild(this.root, value, undefined);
+        
+        if (target_node == false) {
+            return "Value doesn't exist";
+        }
+
+        //No children
+        if (target_node.left == undefined && target_node.right == undefined) {
+            if (parent_node.left == target_node) {
+                parent_node.left = undefined;
+            }
+            else if (parent_node.right == target_node) {
+                parent_node.right = undefined;
+            }
+        }
 
     }
 
@@ -320,11 +360,12 @@ let test = () => {
     //Insert new value
     new_tree.insert(10);
     new_tree.insert(1000);
+    new_tree.deleteItem(1);
     let find_false = new_tree.find(99); // false
     let find = new_tree.find(23);
     new_tree.prettyPrint(root);
-    console.log(find);
     console.log(find_false);
+    console.log(find);
 }
 
 let log = test();
