@@ -201,11 +201,46 @@ class Tree {
         if (target_node.left == undefined && target_node.right == undefined) {
             if (parent_node.left == target_node) {
                 parent_node.left = undefined;
+                target_node = undefined;
             }
             else if (parent_node.right == target_node) {
                 parent_node.right = undefined;
+                target_node = undefined;
             }
         }
+        //Root is deleted
+        else if (parent_node == undefined) {
+            //TODO:
+        }
+        //Have children
+        else {
+            console.log(target_node, "\n", parent_node);
+            burnChildren(target_node, parent_node);
+        }
+
+        function burnChildren(node, parent) {
+            //Recursive case
+            if (node.left != undefined) {
+                return burnChildren(node.left, node);
+            }
+            if (node.right != undefined) {
+                return burnChildren(node.right, node);
+            }
+            //Base case
+            if (node.left == undefined && node.right == undefined) {
+                //Detach parent first
+                if (parent.left == node) {
+                    parent.left = undefined;
+                }
+                else {
+                    parent.right = undefined;
+                }
+                //Clear child itself
+                node = undefined;
+                return;
+            }
+        }
+
 
     }
 
@@ -360,12 +395,12 @@ let test = () => {
     //Insert new value
     new_tree.insert(10);
     new_tree.insert(1000);
-    new_tree.deleteItem(1);
+    new_tree.deleteItem(4);
     let find_false = new_tree.find(99); // false
     let find = new_tree.find(23);
     new_tree.prettyPrint(root);
-    console.log(find_false);
-    console.log(find);
+    //console.log(find_false);
+    //console.log(find);
 }
 
 let log = test();
