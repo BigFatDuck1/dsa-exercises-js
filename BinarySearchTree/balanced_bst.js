@@ -191,7 +191,7 @@ class Tree {
             }
         }
 
-        let [parent_node, target_node] = parentChild(this.root, value, undefined);
+        let [parent_node, target_node] = parentChild(this.root, value, undefined); //if the root is the value being deleted, the function will return [undefined, this.root]
         
         //Error if value doesn't exist in tree
         if (target_node == false) {
@@ -212,6 +212,29 @@ class Tree {
         //Root is deleted
         else if (parent_node == undefined) {
             //TODO: what to do if parent_node is undefined (so the deleted node is the root node)
+            recurseThroughTree(this.root);
+            this.root = undefined;
+
+            function recurseThroughTree(node, node_left, node_right) {
+                if (node.left == undefined && node.right == undefined) {
+                    //Already reached the end child node
+                    node = undefined //clear node itself
+                    return;
+                }
+                //Recursive case
+                else {
+                    if (node.left != undefined) {
+                        recurseThroughTree(node.left, node.left.left, node.left.right);
+                        node.left = undefined;
+                    }
+                    if (node.right != undefined) {
+                        recurseThroughTree(node.right, node.right.left, node.right.right);
+                        node.right = undefined;
+                    }
+                    //Clear the first node that started the recursion
+                    node = undefined;
+                }
+            }
         }
         //Have children
         else {
@@ -253,6 +276,10 @@ class Tree {
     find(value) {
         //returns node with given value
         function recurseFind(node, value) {
+            //In case the node is already undefined, throw an error
+            if (node == undefined) {
+                return "Error: node undefined";
+            }
             //Base case - value found
             if (node.value == value) {
                 return node;
@@ -402,9 +429,11 @@ let test = () => {
     new_tree.insert(10);
     new_tree.insert(1000);
     new_tree.deleteItem(324);
+    new_tree.deleteItem(8); //Delete the root node
     let find_false = new_tree.find(99); // false
     let find = new_tree.find(23);
-    new_tree.prettyPrint(root);
+    //new_tree.prettyPrint(root);
+    new_tree.prettyPrint(new_tree.root);
     //console.log(find_false);
     //console.log(find);
 }
