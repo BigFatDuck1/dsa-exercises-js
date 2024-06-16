@@ -193,51 +193,57 @@ class Tree {
 
         let [parent_node, target_node] = parentChild(this.root, value, undefined);
         
+        //Error if value doesn't exist in tree
         if (target_node == false) {
+            console.log("Item to be deleted doesn't exist in tree.")
             return "Value doesn't exist";
         }
-
         //No children
         if (target_node.left == undefined && target_node.right == undefined) {
             if (parent_node.left == target_node) {
-                parent_node.left = undefined;
-                target_node = undefined;
+                parent_node.left = undefined; //Detach child from parent
+                target_node = undefined; //Set child as undefined to delete it
             }
             else if (parent_node.right == target_node) {
-                parent_node.right = undefined;
-                target_node = undefined;
+                parent_node.right = undefined; //Detach child from parent
+                target_node = undefined; //Set child as undefined to delete it
             }
         }
         //Root is deleted
         else if (parent_node == undefined) {
-            //TODO:
+            //TODO: what to do if parent_node is undefined (so the deleted node is the root node)
         }
         //Have children
         else {
-            console.log(target_node, "\n", parent_node);
             burnChildren(target_node, parent_node);
         }
 
         function burnChildren(node, parent) {
             //Recursive case
             if (node.left != undefined) {
-                return burnChildren(node.left, node);
+                burnChildren(node.left, node);
+                clear(node.left, node);
             }
             if (node.right != undefined) {
-                return burnChildren(node.right, node);
+                burnChildren(node.right, node);
+                clear(node.right, node);
             }
             //Base case
             if (node.left == undefined && node.right == undefined) {
+                clear(node, parent);
+                return;
+            }
+
+            function clear(child_node, parent_node) {
                 //Detach parent first
-                if (parent.left == node) {
-                    parent.left = undefined;
+                if (parent_node.left == child_node) {
+                    parent_node.left = undefined;
                 }
                 else {
-                    parent.right = undefined;
+                    parent_node.right = undefined;
                 }
                 //Clear child itself
-                node = undefined;
-                return;
+                child_node = undefined;
             }
         }
 
@@ -395,7 +401,7 @@ let test = () => {
     //Insert new value
     new_tree.insert(10);
     new_tree.insert(1000);
-    new_tree.deleteItem(4);
+    new_tree.deleteItem(324);
     let find_false = new_tree.find(99); // false
     let find = new_tree.find(23);
     new_tree.prettyPrint(root);
