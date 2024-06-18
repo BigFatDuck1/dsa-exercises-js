@@ -310,6 +310,46 @@ class Tree {
         //traverse tree in breadth-first level order
         //return each node and pass it to callback
         //only return the array of values traversed if no callback provided
+        let queue = [];
+        //Initialize queue with root node
+        if (this.root == undefined) {
+            return "Root undefined";
+        }
+        queue.unshift(this.root);
+        //while loop that traverses the tree BFS
+        let level = [];
+        let children = [];
+        let output = [];
+        while (queue.length > 0) { //while it is not empty
+            let first_in_queue = queue.shift();
+            //Pass into callback if it exists
+            if (callback != undefined) {
+                first_in_queue = callback(first_in_queue);
+            }
+            level.push(first_in_queue);
+            //Push the children into the array
+            if (first_in_queue.left != undefined) {
+                children.push(first_in_queue.left);
+            }
+            if (first_in_queue.right != undefined) {
+                children.push(first_in_queue.right);
+            }
+            //If queue empty, it means the entire level has already traversed, moved to next level
+            if (queue.length == 0) {
+                //Push the array that contains all the elements of that level into output
+                output.push(level);
+                //Push children into queue
+                children.forEach((element) => {
+                    queue.push(element);
+                })
+                //Clear level and children for next level
+                children = [];
+                level = [];
+            }
+
+        }
+
+        return output;
     }
 
     inOrder(callback) {
@@ -420,20 +460,28 @@ let driverScript = () => {
 driverScript();
 
 let test = () => {
-    let new_tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]); //11 unique elements
+    //let new_tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]); //11 unique elements
+    let new_tree = new Tree([1,2,3,4]);
     // let new_tree = new Tree([1,2,3]);
     let root = new_tree.buildTree(new_tree.array);
     // new_tree.prettyPrint(root);
 
     //Insert new value
-    new_tree.insert(10);
-    new_tree.insert(1000);
-    new_tree.deleteItem(324);
-    new_tree.deleteItem(8); //Delete the root node
+    //new_tree.insert(10);
+    //new_tree.insert(1000);
+    //new_tree.deleteItem(324);
+    //new_tree.deleteItem(8); //Delete the root node
     let find_false = new_tree.find(99); // false
     let find = new_tree.find(23);
     //new_tree.prettyPrint(root);
     new_tree.prettyPrint(new_tree.root);
+    //levelOrder
+    function call(node) { //callback function to be passed into levelOrder
+        node.value *= 100;
+        return node;
+    }
+    let level_order_array = new_tree.levelOrder(call);
+    console.log(level_order_array);
     //console.log(find_false);
     //console.log(find);
 }
