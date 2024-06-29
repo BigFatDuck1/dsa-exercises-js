@@ -353,7 +353,34 @@ class Tree {
     }
 
     inOrder(callback) {
+        //In order: left -> root -> right
 
+        let result = [];
+
+        function recurseInOrder(node) {
+            //Base case:
+            //if this node doesn't exist, go back to its parent, that parent node is childless and thus the bottommost leaf of the tree
+            if (node == undefined) {
+                return;
+            }
+
+            //Recursive case: go left first
+            recurseInOrder(node.left);
+
+            if (callback != undefined) {
+                node = callback(node); //Modify node based on callback provided
+            }
+            result.push(node.value); // * change this to node or node.value dpeending on what you want to return
+
+            recurseInOrder(node.right);
+        }
+        if (this.root == undefined) {
+            return "Root undefined";
+        }
+        else {
+            recurseInOrder(this.root);
+            return result;
+        }
     }
     preOrder(callback) {
 
@@ -461,7 +488,7 @@ driverScript();
 
 let test = () => {
     //let new_tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]); //11 unique elements
-    let new_tree = new Tree([1,2,3,4]);
+    let new_tree = new Tree([1,2,3,4,6,5,7]);
     // let new_tree = new Tree([1,2,3]);
     let root = new_tree.buildTree(new_tree.array);
     // new_tree.prettyPrint(root);
@@ -480,8 +507,12 @@ let test = () => {
         node.value *= 100;
         return node;
     }
-    let level_order_array = new_tree.levelOrder(call);
-    console.log(level_order_array);
+    // let level_order_array = new_tree.levelOrder(call);
+    // console.log(level_order_array);
+
+    let inOrder = new_tree.inOrder();
+    console.log(inOrder);
+
     //console.log(find_false);
     //console.log(find);
 }
