@@ -374,6 +374,7 @@ class Tree {
 
             recurseInOrder(node.right);
         }
+
         if (this.root == undefined) {
             return "Root undefined";
         }
@@ -382,10 +383,68 @@ class Tree {
             return result;
         }
     }
-    preOrder(callback) {
 
+    preOrder(callback) {
+        //Preorder: root -> left -> right
+        let result = [];
+
+        function recursePreOrder(node) {
+            //Base case
+            if (node == undefined) {
+                return;
+            }
+            //Recursive case
+
+            //preorder: give root first
+            if (callback != undefined) {
+                node = callback(node);
+            }
+            result.push(node.value) // * change this to node or node.value dpeending on what you want to return
+
+            //then left subtree
+            recursePreOrder(node.left);
+            //then right subtree
+            recursePreOrder(node.right);
+        }
+
+        if (this.root == undefined) {
+            return "Root undefined";
+        }
+        else {
+            recursePreOrder(this.root);
+            return result;
+        }
     }
+
     postOrder(callback) {
+        //Postorder: left -> right -> root
+        let result = [];
+
+        function recursePostOrder(node) {
+            //Base case
+            if (node == undefined) {
+                return;
+            }
+            //Recursive case
+
+            //postorder: give left first
+            recursePostOrder(node.left);
+            //then right
+            recursePostOrder(node.right);
+            if (callback != undefined) {
+                node = callback(node);
+            }
+            result.push(node.value) // * change this to node or node.value dpeending on what you want to return
+
+        }
+
+        if (this.root == undefined) {
+            return "Root undefined";
+        }
+        else {
+            recursePostOrder(this.root);
+            return result;
+        }
 
     }
 
@@ -512,6 +571,12 @@ let test = () => {
 
     let inOrder = new_tree.inOrder();
     console.log(inOrder);
+
+    let preOrder = new_tree.preOrder();
+    console.log(preOrder);
+
+    let postOrder = new_tree.postOrder();
+    console.log(postOrder);
 
     //console.log(find_false);
     //console.log(find);
