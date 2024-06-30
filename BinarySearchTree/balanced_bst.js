@@ -451,7 +451,25 @@ class Tree {
     height(node) {
         //return the height of the node:
         //height is from the given node, the longest path to the leaf node
+        let array_of_both_sides = this.recurseHeight(node);
 
+
+    }
+
+    recurseHeight(node, distance = 0) {
+        //Base case
+        if (node == undefined) {
+            return distance;
+        }
+        //Recursive case
+        
+        let distance_left = this.recurseHeight(node.left, distance += 1);
+
+        let distance_right = this.recurseHeight(node.right, distance += 1);
+
+        return [distance_left, distance_right];
+
+        
     }
 
     depth(node) {
@@ -569,14 +587,17 @@ let test = () => {
     // let level_order_array = new_tree.levelOrder(call);
     // console.log(level_order_array);
 
-    let inOrder = new_tree.inOrder();
-    console.log(inOrder);
+    // let inOrder = new_tree.inOrder();
+    // console.log(inOrder);
 
-    let preOrder = new_tree.preOrder();
-    console.log(preOrder);
+    // let preOrder = new_tree.preOrder();
+    // console.log(preOrder);
 
-    let postOrder = new_tree.postOrder();
-    console.log(postOrder);
+    // let postOrder = new_tree.postOrder();
+    // console.log(postOrder);
+
+    let array = new_tree.recurseHeight(new_tree.root);
+    console.log(array);
 
     //console.log(find_false);
     //console.log(find);
