@@ -451,25 +451,28 @@ class Tree {
     height(node) {
         //return the height of the node:
         //height is from the given node, the longest path to the leaf node
-        let array_of_both_sides = this.recurseHeight(node);
+        let array_of_heights = [];
 
-
-    }
-
-    recurseHeight(node, distance = 0) {
-        //Base case
-        if (node == undefined) {
-            return distance;
+        function recurseToBottom(node, distance=-1) {
+            distance += 1;
+            if (node == undefined) {
+                distance -= 1; //Because the undefined node added 1 to the distance through the function call
+                array_of_heights.push(distance);
+                return;
+            }
+            
+            recurseToBottom(node.left, distance);
+            
+            recurseToBottom(node.right, distance);
         }
-        //Recursive case
-        
-        let distance_left = this.recurseHeight(node.left, distance += 1);
 
-        let distance_right = this.recurseHeight(node.right, distance += 1);
+        if (this.root == undefined) {
+            return "Root undefined";
+        }
+        recurseToBottom(node);
 
-        return [distance_left, distance_right];
+        return Math.max(...array_of_heights);
 
-        
     }
 
     depth(node) {
@@ -565,7 +568,7 @@ driverScript();
 
 let test = () => {
     //let new_tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]); //11 unique elements
-    let new_tree = new Tree([1,2,3,4,6,5,7]);
+    let new_tree = new Tree([1,2,3,4]);
     // let new_tree = new Tree([1,2,3]);
     let root = new_tree.buildTree(new_tree.array);
     // new_tree.prettyPrint(root);
@@ -596,7 +599,7 @@ let test = () => {
     // let postOrder = new_tree.postOrder();
     // console.log(postOrder);
 
-    let array = new_tree.recurseHeight(new_tree.root);
+    let array = new_tree.height(new_tree.root);
     console.log(array);
 
     //console.log(find_false);
