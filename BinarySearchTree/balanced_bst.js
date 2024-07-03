@@ -475,8 +475,38 @@ class Tree {
 
     }
 
-    depth(node) {
+    depth(node) { //I have opted to pass in the value instead of the node itself as the argument/parameter
         //return number of edges from root to the given node
+        let root;
+        if (this.root == undefined) {
+            return "Root does not exist";
+        }
+        else {
+            root = this.root;
+        }
+
+        let global_distance = 0; //the recursive function will edit this variable
+
+        function findWithDistance(node, distance, target) { //target is the (node) argument that is passed into the depth(node) function
+            //Base case
+            if (node == undefined) {
+                return;
+            }
+            else if (node.value == target) {
+                global_distance = distance;
+                return [node, distance]
+            }
+            //Recursive case
+            if (node.value != target) {
+                distance += 1;
+                findWithDistance(node.left, distance, target);
+                findWithDistance(node.right, distance, target);
+            }
+        }
+
+        findWithDistance(root, 0, node);
+
+        return global_distance;
     
     }
 
@@ -567,8 +597,8 @@ let driverScript = () => {
 driverScript();
 
 let test = () => {
-    //let new_tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]); //11 unique elements
-    let new_tree = new Tree([1,2,3,4]);
+    let new_tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]); //11 unique elements
+    //let new_tree = new Tree([1,2,3,4]);
     // let new_tree = new Tree([1,2,3]);
     let root = new_tree.buildTree(new_tree.array);
     // new_tree.prettyPrint(root);
@@ -599,8 +629,11 @@ let test = () => {
     // let postOrder = new_tree.postOrder();
     // console.log(postOrder);
 
-    let array = new_tree.height(new_tree.root);
-    console.log(array);
+    // let array = new_tree.height(new_tree.root);
+    // console.log(array);
+
+    let depth = new_tree.depth(1);
+    console.log(depth);
 
     //console.log(find_false);
     //console.log(find);
