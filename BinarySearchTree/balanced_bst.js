@@ -543,12 +543,12 @@ class Tree {
             return false;
         }
 
-        // return difference_between_left_right, array_of_heights;
-
     }
 
     reBalance() {
         //Hint: provide new array to buildTree()
+        let new_array = this.preOrder(); //copies the value of entire array
+        this.buildTree(new_array);
     }
 
 }
@@ -678,6 +678,10 @@ let test = () => {
 
     balanced = new_tree.isBalanced();
     console.log(balanced);
+    
+    new_tree.reBalance();
+
+    new_tree.prettyPrint(new_tree.root);
 
     //console.log(find_false);
     //console.log(find);
