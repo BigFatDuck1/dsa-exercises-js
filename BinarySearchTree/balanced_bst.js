@@ -512,6 +512,39 @@ class Tree {
 
     isBalanced() {
         //Balanced tree means the different of right and left subtree is only 1 or less
+        let array_of_heights = [];
+
+        function recurseToBottom(node, distance=-1) {
+            distance += 1;
+            if (node == undefined) {
+                distance -= 1; //Because the undefined node added 1 to the distance through the function call
+                array_of_heights.push(distance);
+                return;
+            }
+            
+            recurseToBottom(node.left, distance);
+            
+            recurseToBottom(node.right, distance);
+        }
+
+        if (this.root == undefined) {
+            return "Root undefined";
+        }
+        recurseToBottom(this.root);
+
+        let longest = Math.max(...array_of_heights);
+        let shortest = Math.min(...array_of_heights);
+        let difference_between_left_right = longest - shortest;
+
+        if (difference_between_left_right == 1 || difference_between_left_right == 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+        // return difference_between_left_right, array_of_heights;
+
     }
 
     reBalance() {
@@ -632,8 +665,19 @@ let test = () => {
     // let array = new_tree.height(new_tree.root);
     // console.log(array);
 
-    let depth = new_tree.depth(1);
-    console.log(depth);
+    // let depth = new_tree.depth(1);
+    // console.log(depth);
+
+    let balanced = new_tree.isBalanced();
+    console.log(balanced);
+
+    new_tree.insert(-1);
+    new_tree.insert(2);
+    new_tree.insert(6350);
+    new_tree.prettyPrint(new_tree.root);
+
+    balanced = new_tree.isBalanced();
+    console.log(balanced);
 
     //console.log(find_false);
     //console.log(find);
