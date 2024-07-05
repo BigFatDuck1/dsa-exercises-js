@@ -16,8 +16,22 @@ function knightMoves(start_array, end_array=[0,0]) {
 
     let [start_x, start_y] = [...start_array]; //Object destructuring
     let [end_x, end_y] = [...end_array];
-    console.log(start_array);
-    console.log(start_x, start_y);
+
+    function allMoves(coordinate_array) {
+        let all_legal_moves = [];
+
+        let generateMove = (x,y) => {
+            x += 1;
+            y += 2;
+        }
+
+        let move;
+        if (legalMove(move) == true) {
+            all_legal_moves.push(move);
+        }
+
+        return all_legal_moves;
+    }
 
     function legalMove(x, y) {
         let left_lower_corner = [0,0];
@@ -41,6 +55,8 @@ function knightMoves(start_array, end_array=[0,0]) {
 
 let test_true = knightMoves([1,1]);
 let test_false = knightMoves([9,9]);
+let test_false2 = knightMoves([-2, 3]);
 
 console.log(test_true);
 console.log(test_false);
+console.log(test_false2);
