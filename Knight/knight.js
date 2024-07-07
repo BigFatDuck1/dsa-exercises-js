@@ -13,10 +13,32 @@
 
 
 function knightMoves(start_array, end_array=[0,0]) {
-
+    
     let [start_x, start_y] = [...start_array]; //Object destructuring
-    let [end_x, end_y] = [...end_array];
 
+    //Breadth-first search
+    //Initialize queue
+    let queue = allMoves([start_x, start_y]);
+
+    while (queue.length > 0) {
+        let first = queue.shift();
+        if (arrayCompare(first, end_array) == true) {
+            return "Destination reached";
+        }
+    }
+
+    return "Destination unreachable";
+
+    function arrayCompare(array1, array2) {
+        for (let i = 0; i < array1.length; i++) {
+            if (array1[i] != array2[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
     function allMoves(coordinates_array) {
         
         let generateMove = (x,y) => {
@@ -93,7 +115,6 @@ function knightMoves(start_array, end_array=[0,0]) {
         }
     }
     
-    return allMoves([start_x, start_y]);
 }
 
 // let test_true = knightMoves([1,1]);
@@ -104,5 +125,5 @@ function knightMoves(start_array, end_array=[0,0]) {
 // console.log(test_false);
 // console.log(test_false2);
 
-let test = knightMoves([0,0]);
+let test = knightMoves([0,0], [1,2]);
 console.log(test);
