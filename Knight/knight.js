@@ -19,11 +19,27 @@ function knightMoves(start_array, end_array=[0,0]) {
     //Breadth-first search
     //Initialize queue
     let queue = allMoves([start_x, start_y]);
+    //Initialize hash table for already-traversed squares
+    let past_moves = {};
 
     while (queue.length > 0) {
         let first = queue.shift();
+        console.log("First: ", first);
+        console.log(`Queue: ${queue}`);
+        if (typeof first[0] == "object") { //Means there is a collection of coordinates that represent the route to the destination
+            first = first[0];
+        }
+
         if (arrayCompare(first, end_array) == true) {
+            //TODO: return the entire route
             return "Destination reached";
+        }
+        else {
+            //Generate all children nodes of this parent
+            let children = allMoves(first);
+            console.log("Children: ", children);
+            //Add them all into the queue (array.push())
+            //Remember to check if the node is already checked
         }
     }
 
@@ -125,5 +141,5 @@ function knightMoves(start_array, end_array=[0,0]) {
 // console.log(test_false);
 // console.log(test_false2);
 
-let test = knightMoves([0,0], [1,2]);
+let test = knightMoves([0,0], [4,2]);
 console.log(test);
