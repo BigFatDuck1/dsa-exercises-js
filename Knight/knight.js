@@ -12,7 +12,7 @@
 //     [4,3]
 
 
-function knightMoves(start_array, end_array=[0,0]) {
+function knightMoves(start_array, end_array) {
     
     let [start_x, start_y] = [...start_array]; //Object destructuring
 
@@ -24,11 +24,15 @@ function knightMoves(start_array, end_array=[0,0]) {
 
     while (queue.length > 0) {
         let first = queue.shift();
-        console.log("First: ", first);
-        console.log(`Queue: ${queue}`);
+        let chain = first;
         if (typeof first[0] == "object") { //Means there is a collection of coordinates that represent the route to the destination
             first = first[0];
         }
+        //Since this square is traversed, put it in past_moves hash table 
+        past_moves[first] = 1;
+
+        console.log("First: ", first);
+        console.log("Queue: ", queue);
 
         if (arrayCompare(first, end_array) == true) {
             //TODO: return the entire route
@@ -37,9 +41,15 @@ function knightMoves(start_array, end_array=[0,0]) {
         else {
             //Generate all children nodes of this parent
             let children = allMoves(first);
+            for (let i = 0; i < children.length; i++) {
+                //Add them all into the queue (array.push())
+                //Remember to check if the node is already checked
+                if (past_moves[children[i]] == undefined) {
+                    children[i] = [children[i], ...chain];
+                    queue.push(children[i]);
+                }
+            }
             console.log("Children: ", children);
-            //Add them all into the queue (array.push())
-            //Remember to check if the node is already checked
         }
     }
 
