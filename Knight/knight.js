@@ -25,6 +25,9 @@ function knightMoves(start_array, end_array) {
     while (queue.length > 0) {
         let first = queue.shift();
         let chain = first;
+        if (typeof first[0] == "number") {
+            chain = [first];
+        }
         if (typeof first[0] == "object") { //Means there is a collection of coordinates that represent the route to the destination
             first = first[0];
         }
@@ -36,7 +39,7 @@ function knightMoves(start_array, end_array) {
 
         if (arrayCompare(first, end_array) == true) {
             //TODO: return the entire route
-            return "Destination reached";
+            return ["Destination reached", chain];
         }
         else {
             //Generate all children nodes of this parent
@@ -44,9 +47,12 @@ function knightMoves(start_array, end_array) {
             for (let i = 0; i < children.length; i++) {
                 //Add them all into the queue (array.push())
                 //Remember to check if the node is already checked
-                if (past_moves[children[i]] == undefined) {
-                    children[i] = [children[i], ...chain];
-                    queue.push(children[i]);
+                if (past_moves[children[i]] == undefined) { //Doesn't exist in the hashtable so it hasn't been traversed
+                    let combined_array = [children[i]];
+                    chain.forEach((element) => {
+                        combined_array.push(element);
+                    })
+                    queue.push(combined_array);
                 }
             }
             console.log("Children: ", children);
@@ -151,5 +157,7 @@ function knightMoves(start_array, end_array) {
 // console.log(test_false);
 // console.log(test_false2);
 
-let test = knightMoves([0,0], [4,2]);
-console.log(test);
+let test = knightMoves([0,0], [2,1]);
+let test1 = knightMoves([0,0], [4,2]);
+
+console.log(test1);
