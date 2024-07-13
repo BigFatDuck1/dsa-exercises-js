@@ -34,12 +34,9 @@ function knightMoves(start_array, end_array) {
         //Since this square is traversed, put it in past_moves hash table 
         past_moves[first] = 1;
 
-        console.log("First: ", first);
-        console.log("Queue: ", queue);
-
         if (arrayCompare(first, end_array) == true) {
-            //TODO: return the entire route
-            return ["Destination reached", chain];
+            printResult(chain, start_array);
+            return chain;
         }
         else {
             //Generate all children nodes of this parent
@@ -55,7 +52,6 @@ function knightMoves(start_array, end_array) {
                     queue.push(combined_array);
                 }
             }
-            console.log("Children: ", children);
         }
     }
 
@@ -69,6 +65,31 @@ function knightMoves(start_array, end_array) {
         }
 
         return true;
+    }
+
+    function printResult(array, starting_point) {
+        let path = [starting_point];
+        let recurseReverse = (arr) => {
+            if (arr.length == 0) {
+                return;
+            }
+            else {
+                let last_element = arr.pop();
+                path.push(last_element);
+                recurseReverse(arr);
+            }
+        }
+        recurseReverse(array);
+
+        //Starting point
+        console.log(`Starting point: [ ${starting_point} ]`);
+        //Finishing point
+        console.log(`Destination: [ ${path[path.length - 1]} ]`);
+        //Path
+        console.log("Path: ", path);
+        //Moves
+        console.log("Moves required: ", path.length - 1);
+        return path;
     }
     
     function allMoves(coordinates_array) {
@@ -153,11 +174,8 @@ function knightMoves(start_array, end_array) {
 // let test_false = knightMoves([9,9]);
 // let test_false2 = knightMoves([-2, 3]);
 
-// console.log(test_true);
-// console.log(test_false);
-// console.log(test_false2);
 
-let test = knightMoves([0,0], [2,1]);
-let test1 = knightMoves([0,0], [4,2]);
+// let test = knightMoves([0,0], [2,1]);
+let test1 = knightMoves([3,3], [4,4]);
 
-console.log(test1);
+// console.log(test1);
